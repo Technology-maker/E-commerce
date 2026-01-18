@@ -1,0 +1,6 @@
+/* Force Sonner toast width to shrink */
+.toaster [data-sonner-toast] {
+    min-width: unset !important;
+    max-width: 320px !important;
+    width: fit-content !important;
+}
