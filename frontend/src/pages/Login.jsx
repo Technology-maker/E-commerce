@@ -104,6 +104,10 @@ const Login = () => {
                                     />
                                 </div>
 
+
+
+
+
                                 <div className="grid gap-2">
                                     <div className="flex items-center">
                                         <Label htmlFor="password">Password</Label>
@@ -131,6 +135,13 @@ const Login = () => {
                                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
                                     </div>
+
+                                    <Link
+                                        to="/forgot-password"
+                                        className="text-sm text-pink-700 hover:underline"
+                                    >
+                                        Forgot password?
+                                    </Link>
 
                                 </div>
                             </div>

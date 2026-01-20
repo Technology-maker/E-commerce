@@ -25,6 +25,8 @@ import AddressForm from './pages/AddressForm';
 import OrderSuccess from './pages/OrderSuccess';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
+import ForgetPass from './pages/ForgetPass';
+import ResetPassword from './pages/ResetPassword';
 
 
 
@@ -78,6 +80,14 @@ const router = createBrowserRouter([
   {
     path: '/contact',
     element: <><Navbar /><Contact /> <Footer /> </>
+  },
+  {
+    path: '/forgot-password',
+    element: <><Navbar /> <ForgetPass /> <Footer /> </>
+  },
+  {
+    path: '/reset-password',
+    element: <><Navbar /> <ResetPassword /> <Footer /> </>
   },
 
 
