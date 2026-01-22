@@ -57,8 +57,8 @@ const AddressForm = () => {
     // 3. Extracted Payment Verification Logic to avoid repetition
     const verifyPayment = async (payload) => {
         try {
-            const API = import.meta.env.VITE_API_BASE_URL;
-            const res = await axios.post(`${API}/verify-payment`, payload, {
+            const API = import.meta.env.VITE_API_BASE_URL; 
+            const res = await axios.post(`${API}/orders/verify-payment`, payload, {
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
             return res.data;
@@ -78,7 +78,7 @@ const AddressForm = () => {
             const API = import.meta.env.VITE_API_BASE_URL;
 
             // Create Order
-            const { data } = await axios.post(`${API}/create-order`, {
+            const { data } = await axios.post(`${API}/orders/create-order`, {
                 products: cart.items.map(item => ({
                     productId: item.productId._id,
                     quantity: item.quantity,

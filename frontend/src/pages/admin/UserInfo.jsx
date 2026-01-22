@@ -63,8 +63,10 @@ const UserInfo = () => {
         formData.append("file", file);
       }
 
+      const API = import.meta.env.VITE_API_BASE_URL;
+
       const res = await axios.put(
-        `http://localhost:8000/api/v1/user/update/${userId}`,
+        `${API}/user/update/${userId}`,
         formData,
         {
           headers: {
@@ -90,8 +92,10 @@ const UserInfo = () => {
 
   const getUserDetails = async () => {
     try {
-      const GET_USER_DETAILS_API = `http://localhost:8000/api/v1/user/get-users/${userId}`
-      const res = await axios(GET_USER_DETAILS_API, {
+
+      const API = import.meta.env.VITE_API_BASE_URL;
+      
+      const res = await axios(`${API}/user/get-users/${userId}`, {
         headers: {
           Authorization: `Bearer  ${accessToken}`
         }

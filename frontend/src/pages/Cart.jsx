@@ -11,7 +11,6 @@ import { ShoppingCart, Trash2 } from "lucide-react";
 import { Separator } from "@radix-ui/react-select";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from '../components/Footer'
 import axios from "axios";
 import { setCart } from "@/redux/productSlice";
 import { toast } from "sonner";
@@ -29,14 +28,14 @@ const Cart = () => {
     const total = subTotal + tax;
 
 
-    const API = `http://localhost:8000/api/v1/cart/update`
+    const API = import.meta.env.VITE_API_BASE_URL;
     const accessToken = localStorage.getItem("accessToken");
 
 
     // quantity update function 
     const handelUpdateQuantity = async (productId, type) => {
         try {
-            const res = await axios.put(`${API}`, { productId, type }, {
+            const res = await axios.put(`${API}/cart/update`, { productId, type }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -59,14 +58,12 @@ const Cart = () => {
 
 
     // remove items function
-    const API_DELETE_CART = `http://localhost:8000/api/v1/cart/remove`;
-
     const handelRemove = async (productId) => {
 
         try {
             console.log("Removing productId 👉", productId);
 
-            const res = await axios.delete(API_DELETE_CART, {
+            const res = await axios.delete(`${API}/cart/remove`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 },
@@ -88,10 +85,9 @@ const Cart = () => {
 
 
     // load cart function 
-    const API_GET_CART = `http://localhost:8000/api/v1/cart/`
     const loadCart = async () => {
         try {
-            const res = await axios.get(API_GET_CART, {
+            const res = await axios.get(`${API}/cart/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }

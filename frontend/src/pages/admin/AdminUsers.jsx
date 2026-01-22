@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import UserLogo from "../../assets/user-icons_17703682.png"
 
-import { Trash2, Search, Loader2, Edit, Eye } from 'lucide-react'
+import { Search, Edit, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 
@@ -21,10 +21,13 @@ const AdminUsers = () => {
 
   const getAllUsers = async () => {
     try {
-      setLoading(true)
-      const GET_ALL_USERS_API = `http://localhost:8000/api/v1/user/all-users`
 
-      const res = await axios.get(GET_ALL_USERS_API, {
+
+      setLoading(true)
+
+      const API = import.meta.env.VITE_API_BASE_URL;
+
+      const res = await axios.get(`${API}/user/all-users`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -49,9 +52,10 @@ const AdminUsers = () => {
 
   const deleteUserHandler = async (userId) => {
     try {
-      const DELETE_API = `http://localhost:8000/api/v1/user/delete/${userId}`
 
-      const res = await axios.delete(DELETE_API, {
+      const API = import.meta.env.VITE_API_BASE_URL;
+
+      const res = await axios.delete(`${API}/user/delete/${userId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

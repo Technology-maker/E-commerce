@@ -19,8 +19,11 @@ const Contact = () => {
         };
 
         try {
+
+            const API = import.meta.env.VITE_API_BASE_URL
+
             const res = await axios.post(
-                "http://localhost:8000/api/v1/user/support",
+                `${API}/user/support`,
                 formData,
                 {
                     headers: {

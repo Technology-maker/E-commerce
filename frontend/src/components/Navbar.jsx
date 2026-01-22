@@ -31,8 +31,9 @@ const Navbar = () => {
 
         try {
 
-            // calling api 
-            const res = await axios.post(`http://localhost:8000/api/v1/user/logout`, {},
+            // calling api
+            const API = import.meta.env.VITE_API_BASE_URL;
+            const res = await axios.post(`${API}/user/logout`, {},
                 {
                     // passing Barer token 
                     headers: { Authorization: `Bearer ${accessToken}` }

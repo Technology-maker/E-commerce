@@ -78,13 +78,14 @@ const AdminProduct = () => {
   const handelSave = async (e) => {
 
 
+    const API = import.meta.env.VITE_API_BASE_URL;
+
     e.preventDefault()
     if (!editProduct) return;
 
     setLoading(true)
 
-    const PRODUCT_UPDATE_API =
-      `http://localhost:8000/api/v1/products/update/${editProduct._id}`;
+
 
     const formData = new FormData()
     formData.append("productName", editProduct.productName)
@@ -116,7 +117,7 @@ const AdminProduct = () => {
 
 
     try {
-      const res = await axios.put(PRODUCT_UPDATE_API, formData,
+      const res = await axios.put(`${API}/products/update/${editProduct._id}`, formData,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -146,7 +147,9 @@ const AdminProduct = () => {
 
     try {
 
-      const DELETE_API = `http://localhost:8000/api/v1/products/delete/${productId}`
+      const API = import.meta.env.VITE_API_BASE_URL;
+
+      const DELETE_API = `${API}/products/delete/${productId}`
 
       const remaningProducts = products.filter((product) => product._id !== productId)
       const res = await axios.delete(DELETE_API, {

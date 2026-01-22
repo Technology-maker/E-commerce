@@ -15,7 +15,7 @@ const AddProduct = () => {
   const accessToken = localStorage.getItem("accessToken");
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
-  const ADD_PRODUCT_API_URL = `http://localhost:8000/api/v1/products/add`;
+  const API = import.meta.env.VITE_API_BASE_URL
   const products = useSelector(state => state.product.products)
 
 
@@ -58,7 +58,7 @@ const AddProduct = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post(ADD_PRODUCT_API_URL, formData, {
+      const res = await axios.post(`${API}/products/add`, formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

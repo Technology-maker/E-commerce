@@ -35,10 +35,13 @@ const ResetPassword = () => {
 
     setLoading(true)
     try {
+
+        const API = import.meta.env.VITE_API_BASE_URL;  
+
         const email = localStorage.getItem("resetEmail")
 
         const res = await axios.post(
-            `http://localhost:8000/api/v1/user/verify-otp/${email}`,
+            `${API}/user/verify-otp/${email}`,
             { otp: formData.otp }
         )
 
@@ -59,11 +62,14 @@ const ResetPassword = () => {
 
     setLoading(true)
     try {
+
+        const API = import.meta.env.VITE_API_BASE_URL;
+
         const email = localStorage.getItem("resetEmail")
         const encodedEmail = encodeURIComponent(email)
 
         const res = await axios.post(
-            `http://localhost:8000/api/v1/user/change-password/${encodedEmail}`,
+            `${API}/user/change-password/${encodedEmail}`,
             {
                 newPassword: formData.password,
                 confirmPassword: formData.confirmPassword

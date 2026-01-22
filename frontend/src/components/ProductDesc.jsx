@@ -27,7 +27,9 @@ const ProductDesc = ({ product }) => {
 
 
         try {
-            const res = await axios.post(`http://localhost:8000/api/v1/cart/add`, { productId, quantity }, {
+
+            const API = import.meta.env.VITE_API_BASE_URL;
+            const res = await axios.post(`${API}/cart/add`, { productId, quantity }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

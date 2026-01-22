@@ -54,8 +54,11 @@ const Products = () => {
 
     const getAllProducts = async () => {
         try {
+
+            const API = import.meta.env.VITE_API_BASE_URL;  
+
             setLoading(true)
-            const res = await axios.get(`http://localhost:8000/api/v1/products/get-products`)
+            const res = await axios.get(`${API}/products/get-products`)
 
             if (res.data.success) {
                 setAllProducts(res.data.products)

@@ -8,11 +8,11 @@ const AdminOrders = () => {
     const [loading, setLoading] = useState(true);
 
     const accessToken = localStorage.getItem("accessToken");
-    const API = import.meta.env.VITE_API_BASE_URL;
+    const API = import.meta.env.VITE_API_BASE_URL; 
     console.log(orders);
     const fetchAllOrders = async () => {
         try {
-            const res = await axios.get(`${API}/all-orders`, {
+            const res = await axios.get(`${API}/orders/all-orders`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

@@ -27,14 +27,16 @@ const ProductCard = ({ product, loading }) => {
     const addToCart = async (productId) => {
         try {
 
+            const API = import.meta.env.VITE_API_BASE_URL;
+
             if (!user) {
                 toast.error("Please login first 😊");
                 setTimeout(() => navigate("/login"), 1700);
                 return;
             }
             const res = await axios.post(
-                "http://localhost:8000/api/v1/cart/add",
-                { productId },
+                `${API}/cart/add`,
+                { productId, quantity: 1 },
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,

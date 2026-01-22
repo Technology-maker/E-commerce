@@ -13,12 +13,12 @@ const FeaturedProducts = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    const API = import.meta.env.VITE_API_BASE_URL
+    const API = import.meta.env.VITE_API_BASE_URL 
 
     const getAllProducts = async () => {
         try {
             setLoading(true)
-            const res = await axios.get(`${API}/products/get-products`)
+            const res = await axios.get(`${API}/orders/products/get-products`)
 
             if (res.data.success) {
                 dispatch(setProducts(res.data.products))

@@ -73,6 +73,9 @@ const Profile = () => {
         const accessToken = localStorage.getItem("accessToken");
 
         try {
+
+            const API = import.meta.env.VITE_API_BASE_URL
+
             const formData = new FormData();
 
             formData.append("firstName", updateUser.firstName);
@@ -88,7 +91,7 @@ const Profile = () => {
             }
 
             const res = await axios.put(
-                `http://localhost:8000/api/v1/user/update/${userId}`,
+                `${API}/user/update/${userId}`,
                 formData,
                 {
                     headers: {

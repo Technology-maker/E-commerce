@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const AdminSalse = () => {
     const accessToken = localStorage.getItem("accessToken");
-    const API = import.meta.env.VITE_API_BASE_URL;
+    const API = import.meta.env.VITE_API_BASE_URL; 
 
     const [stats, setStats] = useState({
         totalUsers: 0,
@@ -18,13 +18,12 @@ const AdminSalse = () => {
 
     const fetchStates = async () => {
         try {
-            const res = await axios.get(`${API}/sales`, {
+            const res = await axios.get(`${API}/orders/sales`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
 
-            console.log("Sales API Response:", res.data);
 
             if (res.data.success) {
                 setStats({
