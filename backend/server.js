@@ -42,7 +42,4 @@ app.use("/api/v1/orders", orderRoute);   //   route - http://localhost:8000/api/
 
 
 
-app.listen(Port, () => {
     connectDB();
-    console.log(`App is listening on port :${Port}`)
-})
