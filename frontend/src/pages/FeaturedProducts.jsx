@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom"
 const FeaturedProducts = () => {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.product.products)
+    const rehydrated = useSelector(state => state._persist?.rehydrated)
+
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -32,10 +34,10 @@ const FeaturedProducts = () => {
     }
 
     useEffect(() => {
-        if (!products || products.length === 0) {
-            getAllProducts()
-        }
-    }, [products])
+    if (rehydrated && (!products || products.length === 0)) {
+        getAllProducts()
+    }
+}, [rehydrated, products])
 
     const featuredProducts = useMemo(() => {
         return products?.slice(0, 10)
