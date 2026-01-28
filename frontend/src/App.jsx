@@ -27,6 +27,7 @@ import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import ForgetPass from './pages/ForgetPass';
 import ResetPassword from './pages/ResetPassword';
+import ReVerifyEmail from './pages/ReVerifyEmail';
 
 
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: '/verify/:token',
     element: <> <VerifyEmail /> </>
+  },
+  {
+    path: '/reverify',
+    element: <> <ReVerifyEmail /> </>
   },
   {
     path: '/profile/:userId',

@@ -46,7 +46,7 @@ const Signup = () => {
 
             const API = import.meta.env.VITE_API_BASE_URL;
 
-            const res = await axios.post(`${API}/user/register`, formData,{
+            const res = await axios.post(`${API}/user/register`, formData, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -54,6 +54,7 @@ const Signup = () => {
             if (res.data.success) {
                 navigate("/verify")
                 toast.success(res.data.message)
+
             }
         } catch (error) {
             console.log(error);
@@ -162,6 +163,14 @@ const Signup = () => {
                                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
                                     </div>
+
+                                    <p className="text-sm text-gray-600 py-1.5">
+                                        Didn’t receive the email?{" "}
+                                        <Link to="/reverify" className="text-pink-700 hover:underline">
+                                            Resend verification
+                                        </Link>
+                                    </p>
+
 
                                 </div>
                             </div>

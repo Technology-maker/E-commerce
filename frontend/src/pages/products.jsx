@@ -55,7 +55,7 @@ const Products = () => {
     const getAllProducts = async () => {
         try {
 
-            const API = import.meta.env.VITE_API_BASE_URL;  
+            const API = import.meta.env.VITE_API_BASE_URL;
 
             setLoading(true)
             const res = await axios.get(`${API}/products/get-products`)
@@ -107,6 +107,10 @@ const Products = () => {
 
     useEffect(() => {
         getAllProducts()
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        })
     }, [])
 
 

@@ -18,6 +18,6 @@ router.get("/all-users", isAuthenticated, isAdmin, allUsers);
 router.get("/get-users/:userId", getUserById);
 router.put("/update/:id", isAuthenticated, singleUpload, multerErrorHandler, updateUser)
 router.post("/support", userSupport)
-
+ 
 
 export default router;

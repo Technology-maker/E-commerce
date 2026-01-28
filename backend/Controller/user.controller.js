@@ -27,8 +27,13 @@ export const Register = async (req, res) => {
         //  Check existing user 
         const user = await User.findOne({ email: email.toLowerCase() })
 
-
-        if (user) {
+        if ( user && user.isVerified === false) {
+            return res.status(400).json({
+                success: false,
+                message: "User Email Not Verified !"
+            })
+        }
+        if (user && user.isVerified) {
             return res.status(400).json({
                 success: false,
                 message: "User Already exist !"
