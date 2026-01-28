@@ -1,0 +1,8 @@
+# environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# node stuff
+node_modules/

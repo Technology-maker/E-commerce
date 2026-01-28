@@ -7,7 +7,7 @@ import Verify from './pages/Verify';
 import VerifyEmail from './pages/VerifyEmail';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Footer from './components/Footer';
-import Profile from './pages/profile';
+import Profile from './pages/Profile';
 import Products from './pages/products';
 import Cart from './pages/Cart';
 import Dashboard from './pages/Dashboard';
