@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
         if (!products || products.length === 0) {
             getAllProducts()
         }
-    }, [])
+    }, [products])
 
     const featuredProducts = useMemo(() => {
         return products?.slice(0, 10)
