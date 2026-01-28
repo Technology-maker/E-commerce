@@ -14,20 +14,20 @@ const Port = process.env.PORT || 8000;
 // middleware 
 app.use(express.json());   // for json formet accept 
 
-const allowedOrigins = process.env.CLIENT_URL.split(",");
+const allowedOrigins = process.env.CLIENT_URL?.split(",") || [];
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("CORS not allowed"));
+        callback(null, false); // DO NOT throw error
       }
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"]
   })
-);   // allow frontend requests
+);  // allow frontend requests
 
 app.get('/', (req, res) => {
   res.send('Backend Was Running !')
@@ -41,5 +41,11 @@ app.use("/api/v1/orders", orderRoute);   //   route - http://localhost:8000/api/
 
 
 
+connectDB();
 
-    connectDB();
+app.listen(Port, () => {
+    console.log(`App is listening on port :${Port}`)
+})
+
+// export for Vercel
+export default app;
