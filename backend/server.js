@@ -13,19 +13,31 @@ const Port = process.env.PORT || 8000;
 
 // middleware 
 app.use(express.json());   // for json formet accept 
-app.use(cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));    // allow frontend requests
 
+const allowedOrigins = process.env.CLIENT_URL.split(",");
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"]
+  })
+);   // allow frontend requests
+
+app.get('/', (req, res) => {
+  res.send('Backend Was Running !')
+})
 
 
 app.use("/api/v1/user", userRoute);   //   route - http://localhost:8000/api/v1/user/
 app.use("/api/v1/products", productRoute);   //   route - http://localhost:8000/api/v1/product/
 app.use("/api/v1/cart", cartRoute);   //   route - http://localhost:8000/api/v1/cart/
 app.use("/api/v1/orders", orderRoute);   //   route - http://localhost:8000/api/v1/orders/
-
 
 
 
