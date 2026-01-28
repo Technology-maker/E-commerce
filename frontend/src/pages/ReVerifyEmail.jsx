@@ -13,10 +13,12 @@ import {
     CardTitle,
 } from "../components/ui/card"
 import { Loader2, Mail } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const ReVerifyEmail = () => {
     const [email, setEmail] = useState("")
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
 
     const API = import.meta.env.VITE_API_BASE_URL
 
@@ -43,6 +45,18 @@ const ReVerifyEmail = () => {
                 toast.success(res.data.message)
             }
         } catch (error) {
+            if (error?.response?.data?.message === "Email is already verified") {
+                toast.info("Email already verified. ")
+                setTimeout(() => navigate("/login"), 1000)
+                return
+            }
+            if (error?.response?.data?.message === "User not found 😵") {
+                toast.info("User not found 😵")
+                setTimeout(() => navigate("/signup"), 1000)
+                return
+            }
+            
+
             toast.error(
                 error.response?.data?.message || "Failed to resend verification email"
             )
