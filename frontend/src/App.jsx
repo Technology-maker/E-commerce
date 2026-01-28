@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -27,9 +27,7 @@ import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import ForgetPass from './pages/ForgetPass';
 import ResetPassword from './pages/ResetPassword';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { setProducts } from './redux/productSlice';
+
 
 
 
@@ -138,28 +136,6 @@ const router = createBrowserRouter([
 
 
 const App = () => {
-  const dispatch = useDispatch()
-  const products = useSelector(state => state.product.products)
-
-  useEffect(() => {
-    if (products.length === 0) {
-      const fetchProducts = async () => {
-        try {
-          const API = import.meta.env.VITE_API_BASE_URL
-          const res = await axios.get(
-            `${API}/orders/products/get-products`
-          )
-          if (res.data.success) {
-            dispatch(setProducts(res.data.products))
-          }
-        } catch (err) {
-          console.error("Product fetch failed", err)
-        }
-      }
-
-      fetchProducts()
-    }
-  }, []) // run ONCE
   return (
     <>
       <RouterProvider router={router} />

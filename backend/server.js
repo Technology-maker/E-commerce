@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
 
 app.use("/api/v1/user", userRoute);   //   route - http://localhost:8000/api/v1/user/
-app.use("/api/v1/products", productRoute);   //   route - http://localhost:8000/api/v1/product/
+app.use("/api/v1/products", productRoute);   //   route - http://localhost:8000/api/v1/products/
 app.use("/api/v1/cart", cartRoute);   //   route - http://localhost:8000/api/v1/cart/
 app.use("/api/v1/orders", orderRoute);   //   route - http://localhost:8000/api/v1/orders/
 
