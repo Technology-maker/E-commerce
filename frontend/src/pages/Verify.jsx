@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Verify = () => {
     return (
@@ -8,6 +9,12 @@ const Verify = () => {
                     <h2 className='text-2xl font-semibold text-green-500 mb-4'>✅ Check Your Email !</h2>
                     <p className='text-green-400 text-sm'>
                         We’ve sent you an email to verify your account. Please check your inbox and click the verification link.
+                    </p>
+                    <p className="text-sm text-gray-600 py-1.5">
+                        Didn’t receive the email?{" "}
+                        <Link to="/reverify" className="text-pink-700 hover:underline">
+                            Resend verification
+                        </Link>
                     </p>
                 </div>
             </div>
