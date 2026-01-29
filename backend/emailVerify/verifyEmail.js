@@ -1,19 +1,20 @@
 import { Resend } from "resend";
+import "dotenv/config";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const verifyEmail = async (token, email) => {
-  if (!token || !email) {
-    throw new Error("Token or email missing");
-  }
+    if (!token || !email) {
+        throw new Error("Token or email missing");
+    }
 
-  const verifyLink = `${process.env.CLIENT_URL}/verify/${token}`;
+    const verifyLink = `${process.env.CLIENT_URL}/verify/${token}`;
 
-  const { data, error } = await resend.emails.send({
-    from: "Support <onboarding@resend.dev>", // works instantly
-    to: email,
-    subject: "Verify your email",
-    html: `
+    const { data, error } = await resend.emails.send({
+        from: "Support <onboarding@resend.dev>", // works instantly
+        to: email,
+        subject: "Verify your email",
+        html: `
       <h2>Welcome 👋</h2>
       <p>Please click the button below to verify your email:</p>
       <a 
@@ -32,13 +33,14 @@ export const verifyEmail = async (token, email) => {
       </a>
       <p>If you didn’t sign up, ignore this email.</p>
     `,
-  });
+    });
 
-  if (error) {
-    console.error("Resend error:", error);
-    throw new Error("Failed to send verification email");
-  }
+    if (error) {
+        console.error("RESEND FULL ERROR:", error);
+        throw new Error(error.message);
+    }
 
-  console.log("✅ Email sent via Resend:", data);
-  return data;
+
+    console.log("✅ Email sent via Resend:", data);
+    return data;
 };
