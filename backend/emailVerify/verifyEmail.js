@@ -1,62 +1,44 @@
-import nodemailer from "nodemailer"
-import "dotenv/config"
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const verifyEmail = async (token, email) => {
-    try {
-        if (!token || !email) {
-            throw new Error("Token or email is missing");
+  if (!token || !email) {
+    throw new Error("Token or email missing");
+  }
 
-        }
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS
-            }
-        });
+  const verifyLink = `${process.env.CLIENT_URL}/verify/${token}`;
 
-        const mailConfigurations = {
+  const { data, error } = await resend.emails.send({
+    from: "Support <onboarding@resend.dev>", // works instantly
+    to: email,
+    subject: "Verify your email",
+    html: `
+      <h2>Welcome 👋</h2>
+      <p>Please click the button below to verify your email:</p>
+      <a 
+        href="${verifyLink}" 
+        style="
+          display:inline-block;
+          padding:12px 20px;
+          background:#ec4899;
+          color:white;
+          text-decoration:none;
+          border-radius:6px;
+          margin-top:10px;
+        "
+      >
+        Verify Email
+      </a>
+      <p>If you didn’t sign up, ignore this email.</p>
+    `,
+  });
 
-            //Kon Bhej Raha h  
-            from: `"Support Team" <${process.env.MAIL_USER}>`,
+  if (error) {
+    console.error("Resend error:", error);
+    throw new Error("Failed to send verification email");
+  }
 
-            //Kisko Bhej Raha h 
-            to: email,
-
-            // Subject of Email
-            subject: 'Email Verification',
-
-            // This would be the text of email body
-            text: `
-Hi! There, You have recently visited 
-our website and entered your email.
-Please follow the given link to verify your email
-http://localhost:5173/verify/${token}
-Thanks`
-        };
-
-
-        const info = await transporter.sendMail(mailConfigurations);
-
-        console.log("✅ Email sent successfully");
-        console.log("📩 Message ID:", info.messageId);
-
-        return info;
-
-
-    } catch (error) {
-        console.error("❌ Error sending verification email:", error.message);
-
-        // Re-throw so controller can handle it
-        throw new Error("Failed to send verification email");
-    }
-}
-
-
-
-
-
-
-
-
- 
+  console.log("✅ Email sent via Resend:", data);
+  return data;
+};
