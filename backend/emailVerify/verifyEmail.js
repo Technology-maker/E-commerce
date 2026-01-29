@@ -8,7 +8,7 @@ export const verifyEmail = async (token, email) => {
 
         }
 
-        const verifyLink = `https://e-commerce-app-mu-flax.vercel.app/verify/${token}` || `https://e-commerce-app-git-main-technology-makers-projects.vercel.app/verify/${token}` || `http://localhost:5173/verify/${token}`
+        const verifyLink = `${process.env.CLIENT_URL}/verify/${token}`;
 
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
@@ -63,8 +63,6 @@ Thanks`
         throw new Error("Failed to send verification email");
     }
 }
-
-
 
 
 
