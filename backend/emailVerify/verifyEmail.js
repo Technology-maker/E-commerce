@@ -8,14 +8,23 @@ export const verifyEmail = async (token, email) => {
 
         }
 
-        const verifyLink = `https://e-commerce-app-mu-flax.vercel.app/verify/${token}` || `https://e-commerce-app-git-main-technology-makers-projects.vercel.app/verify/${token}` ||  `http://localhost:5173/verify/${token}`
+        const verifyLink = `https://e-commerce-app-mu-flax.vercel.app/verify/${token}` || `https://e-commerce-app-git-main-technology-makers-projects.vercel.app/verify/${token}` || `http://localhost:5173/verify/${token}`
 
         const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
             service: 'gmail',
+            secure: false,
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS
-            }
+            },
+            tls: {
+                rejectUnauthorized: false,
+            },
+            connectionTimeout: 10000,
+            greetingTimeout: 10000,
+            socketTimeout: 10000,
         });
 
         const mailConfigurations = {
@@ -62,4 +71,4 @@ Thanks`
 
 
 
- 
+
