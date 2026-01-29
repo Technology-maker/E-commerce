@@ -7,6 +7,9 @@ export const verifyEmail = async (token, email) => {
             throw new Error("Token or email is missing");
 
         }
+
+        const verifyLink = `https://e-commerce-app-mu-flax.vercel.app/verify/${token}`
+
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -31,7 +34,7 @@ export const verifyEmail = async (token, email) => {
 Hi! There, You have recently visited 
 our website and entered your email.
 Please follow the given link to verify your email
-http://localhost:5173/verify/${token}
+${verifyLink}
 Thanks`
         };
 
