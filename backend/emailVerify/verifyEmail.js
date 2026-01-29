@@ -7,24 +7,12 @@ export const verifyEmail = async (token, email) => {
             throw new Error("Token or email is missing");
 
         }
-
-        const verifyLink = `${process.env.CLIENT_URL}/verify/${token}`;
-
         const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
             service: 'gmail',
-            secure: false,
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS
-            },
-            tls: {
-                rejectUnauthorized: false,
-            },
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 10000,
+            }
         });
 
         const mailConfigurations = {
@@ -43,7 +31,7 @@ export const verifyEmail = async (token, email) => {
 Hi! There, You have recently visited 
 our website and entered your email.
 Please follow the given link to verify your email
-${verifyLink}
+http://localhost:5173/verify/${token}
 Thanks`
         };
 
@@ -70,3 +58,5 @@ Thanks`
 
 
 
+
+ 

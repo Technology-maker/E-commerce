@@ -14,32 +14,20 @@ const Port = process.env.PORT || 8000;
 // middleware 
 app.use(express.json());   // for json formet accept 
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://e-commerce-app-mu-flax.vercel.app",
-  "https://e-commerce-app-git-main-technology-makers-projects.vercel.app"
-];
-
+const allowedOrigins = process.env.CLIENT_URL?.split(",") || [];
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (Postman, mobile apps)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(null, false); // DO NOT throw error
       }
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"]
   })
-);
-
-// IMPORTANT for preflight
-app.options("*", cors()); // allow frontend requests
+);  // allow frontend requests
 
 app.get('/', (req, res) => {
   res.send('Backend Was Running !')
