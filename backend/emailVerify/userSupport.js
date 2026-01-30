@@ -14,7 +14,7 @@ const userSupportMail = async (name, email, subject, number, message) => {
 
     const mailOptions = {
         from: `"Support Form" <${process.env.MAIL_USER}>`,
-        to: process.env.SUPPORT_EMAIL || process.env.MAIL_USER,
+        to: process.env.MAIL_USER,
         replyTo: email,
         subject: subject,
         text: `

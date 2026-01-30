@@ -616,7 +616,7 @@ export const userSupport = async (req, res) => {
         console.error("Support error:", error);
         return res.status(500).json({
             success: false,
-            message: "Failed to send message"
+            message: error.message || "Failed to send message",
         });
     }
 };
