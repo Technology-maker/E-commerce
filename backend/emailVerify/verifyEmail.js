@@ -8,7 +8,7 @@ export const verifyEmail = async (token, email) => {
         throw new Error("Token or email missing");
     }
 
-    const verifyLink = `$https://e-commerce-app-mu-flax.vercel.app/verify/${token}`;
+    const verifyLink = `https://e-commerce-app-mu-flax.vercel.app/verify/${token}`;
 
     const { data, error } = await resend.emails.send({
         from: "Support <noreply@satenderyadav.xyz>", // works instantly
