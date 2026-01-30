@@ -55,7 +55,7 @@ const ProductCard = ({ product, loading }) => {
         }
     }
     return (
-        <div className='shadow-lg rounded-lg overflow-hidden h-max'>
+        <div className='shadow-lg rounded-lg overflow-hidden h-max border-2'>
             <div onClick={() => navigate(`/products/${product._id}`)} className='w-full h-full aspect-square overflow-hidden'>
 
                 {
@@ -70,7 +70,7 @@ const ProductCard = ({ product, loading }) => {
                     <Skeleton className="w-[100px] h-4 " />
                     <Skeleton className="w-[250px] h-8 " />
 
-                </div> : <div className='px-2 space-y-1 '>
+                </div> : <div className='px-2 space-y-1'>
                     {/* Name of the product  */}
                     <h1 className='font-semibold h-12 line-clamp-2'>{productName}</h1>
 

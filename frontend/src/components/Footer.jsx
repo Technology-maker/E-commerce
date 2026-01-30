@@ -20,7 +20,6 @@ const Footer = () => {
 
     const socialLinks = [
         { icon: Instagram, href: "#" },
-        { icon: Twitter, href: "#" },
         { icon: Facebook, href: "#" },
 
     ];
@@ -28,7 +27,7 @@ const Footer = () => {
     return (
         <footer className="bg-primary text-primary-foreground">
             <div className="container mx-auto px-4 lg:px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 ">
                     {/* Brand */}
                     <div className="lg:col-span-2">
                         <Link to="/" className="font-heading text-3xl font-semibold tracking-tight">
@@ -50,42 +49,43 @@ const Footer = () => {
                         </div>
                     </div>
 
+                    <div className="grid grid-cols-2 gap-8 md:contents">
+
+                        {/* Company Links */}
+                        <div>
+                            <h4 className="font-semibold text-lg mb-4">Company</h4>
+                            <ul className="space-y-3">
+                                {footerLinks.company.map((link) => (
+                                    <li key={link.name}>
+                                        <a
+                                            href={link.href}
+                                            className="text-primary-foreground/70 hover:text-accent transition-colors duration-300"
+                                        >
+                                            {link.name}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
 
-                    {/* Company Links */}
-                    <div>
-                        <h4 className="font-semibold text-lg mb-4">Company</h4>
-                        <ul className="space-y-3">
-                            {footerLinks.company.map((link) => (
-                                <li key={link.name}>
-                                    <a
-                                        href={link.href}
-                                        className="text-primary-foreground/70 hover:text-accent transition-colors duration-300"
-                                    >
-                                        {link.name}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
 
-
-
-                    {/* Help Links */}
-                    <div>
-                        <h4 className="font-semibold text-lg mb-4">Help</h4>
-                        <ul className="space-y-3">
-                            {footerLinks.help.map((link) => (
-                                <li key={link.name}>
-                                    <a
-                                        href={link.href}
-                                        className="text-primary-foreground/70 hover:text-accent transition-colors duration-300"
-                                    >
-                                        {link.name}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
+                        {/* Help Links */}
+                        <div>
+                            <h4 className="font-semibold text-lg mb-4">Help</h4>
+                            <ul className="space-y-3">
+                                {footerLinks.help.map((link) => (
+                                    <li key={link.name}>
+                                        <a
+                                            href={link.href}
+                                            className="text-primary-foreground/70 hover:text-accent transition-colors duration-300"
+                                        >
+                                            {link.name}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
 
 
@@ -102,9 +102,6 @@ const Footer = () => {
                         </a>
                         <a href="#" className="hover:text-primary-foreground transition-colors">
                             Terms of Service
-                        </a>
-                        <a href="#" className="hover:text-primary-foreground transition-colors">
-                            Cookie Settings
                         </a>
                     </div>
                 </div>
