@@ -11,7 +11,7 @@ export const verifyEmail = async (token, email) => {
     const verifyLink = `${process.env.CLIENT_URL}/verify/${token}`;
 
     const { data, error } = await resend.emails.send({
-        from: "Support <onboarding@resend.dev>", // works instantly
+        from: "Support <noreply@satenderyadav.xyz>", // works instantly
         to: email,
         subject: "Verify your email",
         html: `
