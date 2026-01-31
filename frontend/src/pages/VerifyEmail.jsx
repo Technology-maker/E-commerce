@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { toast } from "sonner"
 
 const VerifyEmail = () => {
     const { token } = useParams()
@@ -32,6 +33,7 @@ const VerifyEmail = () => {
 
                 if (res.data.success) {
                     setStatus("✅ Email verified successfully!")
+                    toast.success("Login 👇🏻 please !");
                     setTimeout(() => navigate("/login"), 2000)
                 }
             } catch (error) {
@@ -39,12 +41,14 @@ const VerifyEmail = () => {
 
                 if (message === "Email already verified") {
                     setStatus("ℹ️ Email already verified")
+                    toast.success("Login 👇🏻 please !");
                     setTimeout(() => navigate("/login"), 1000)
                     return
                 }
 
                 if (message === "Registration token has expired!") {
                     setStatus("⏳ Verification link expired")
+                    toast.error("Please Reverify Your Email 😊");
                     setTimeout(() => navigate("/reverify"), 1000)
                     return
                 }
