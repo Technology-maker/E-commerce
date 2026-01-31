@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -6,31 +6,18 @@ dotenv.config();
 const userSupportMail = async (name, email, subject, number, message) => {
     try {
         // Validate required environment variables
-        if (!process.env.MAIL_USER) {
-            console.error("❌ MAIL_USER environment variable is not set");
-            throw new Error("Email sender address not configured in environment variables");
+        if (!process.env.RESEND_API_KEY) {
+            console.error("❌ RESEND_API_KEY environment variable is not set");
+            throw new Error("Resend API key not configured in environment variables");
         }
 
-        if (!process.env.MAIL_PASS) {
-            console.error("❌ MAIL_PASS environment variable is not set");
-            throw new Error("Email password not configured in environment variables");
-        }
+        console.log("✅ Resend API key found. Sending email...");
 
-        console.log("✅ Email credentials found. Initializing transporter...");
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASS,
-            },
-            logger: true,
-            debug: true,
-        });
-
-        const mailOptions = {
-            from: `"Support Form" <${process.env.MAIL_USER}>`,
-            to: process.env.MAIL_USER,
+        const result = await resend.emails.send({
+            from: process.env.MAIL_USER || "onboarding@resend.dev",
+            to: process.env.MAIL_USER || "delivered@resend.dev",
             replyTo: email,
             subject: `[SUPPORT] ${subject}`,
             html: `
@@ -47,11 +34,15 @@ const userSupportMail = async (name, email, subject, number, message) => {
                     </div>
                 </div>
             `,
-        };
+        });
 
-        const result = await transporter.sendMail(mailOptions);
-        console.log("✅ Email sent successfully. Message ID:", result.messageId);
-        return { success: true, messageId: result.messageId };
+        if (result.error) {
+            console.error("❌ Resend API error:", result.error);
+            throw new Error(result.error.message || "Failed to send email via Resend");
+        }
+
+        console.log("✅ Email sent successfully via Resend. ID:", result.data.id);
+        return { success: true, messageId: result.data.id };
     } catch (error) {
         console.error("❌ Email sending failed:", error.message);
         console.error("Error details:", error);
