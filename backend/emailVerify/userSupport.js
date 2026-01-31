@@ -6,9 +6,17 @@ dotenv.config();
 const userSupportMail = async (name, email, subject, number, message) => {
     try {
         // Validate required environment variables
-        if (!process.env.MAIL_USER || !process.env.MAIL_PASS) {
-            throw new Error("Email credentials not configured");
+        if (!process.env.MAIL_USER) {
+            console.error("❌ MAIL_USER environment variable is not set");
+            throw new Error("Email sender address not configured in environment variables");
         }
+
+        if (!process.env.MAIL_PASS) {
+            console.error("❌ MAIL_PASS environment variable is not set");
+            throw new Error("Email password not configured in environment variables");
+        }
+
+        console.log("✅ Email credentials found. Initializing transporter...");
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -16,6 +24,8 @@ const userSupportMail = async (name, email, subject, number, message) => {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS,
             },
+            logger: true,
+            debug: true,
         });
 
         const mailOptions = {
@@ -40,9 +50,11 @@ const userSupportMail = async (name, email, subject, number, message) => {
         };
 
         const result = await transporter.sendMail(mailOptions);
+        console.log("✅ Email sent successfully. Message ID:", result.messageId);
         return { success: true, messageId: result.messageId };
     } catch (error) {
-        console.error("Email sending error:", error);
+        console.error("❌ Email sending failed:", error.message);
+        console.error("Error details:", error);
         throw error;
     }
 };
