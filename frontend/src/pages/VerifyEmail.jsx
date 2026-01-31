@@ -39,12 +39,13 @@ const VerifyEmail = () => {
 
                 if (message === "Email already verified") {
                     setStatus("ℹ️ Email already verified")
-                    setTimeout(() => navigate("/login"), 2000)
+                    setTimeout(() => navigate("/login"), 1000)
                     return
                 }
 
                 if (message === "Registration token has expired!") {
                     setStatus("⏳ Verification link expired")
+                    setTimeout(() => navigate("/reverify"), 1000)
                     return
                 }
 
