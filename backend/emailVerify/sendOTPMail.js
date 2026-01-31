@@ -16,7 +16,7 @@ export const sendOTPMail = async (otp, email) => {
 
         // Use configured MAIL_USER as sender when available (you verified satenderyadav.xyz).
         // If you still want to force the Resend onboarding sender, set FORCE_ONBOARDING_SEND=true.
-        const configuredFrom = process.env.MAIL_USER  || satenderyadav.xyz;
+        const configuredFrom = process.env.MAIL_USER ;
         let fromEmail = configuredFrom || "onboarding@resend.dev";
         if (configuredFrom && process.env.FORCE_ONBOARDING_SEND === "true") {
             console.warn("FORCE_ONBOARDING_SEND is true — using onboarding@resend.dev as sender instead of MAIL_USER.");

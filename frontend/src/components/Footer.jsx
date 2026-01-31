@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
-import { Instagram, Twitter, Facebook } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+
+    const { user } = useSelector(store => store.user);
+
     const footerLinks = {
 
         help: [
             { name: "Home", href: "/" },
             { name: "Products", href: "/products" },
-            { name: "Cart", href: "#" },
-            { name: "My Account", href: "#" },
+            { name: "Cart", href: "/cart" },
+            { name: "My Account", href: user ? `/profile/${user?._id}` : "/login" },
+            
         ],
         company: [
             { name: "Contact Us", href: "/contact" },
@@ -19,8 +24,8 @@ const Footer = () => {
     };
 
     const socialLinks = [
-        { icon: Instagram, href: "#" },
-        { icon: Facebook, href: "#" },
+        { icon: Instagram, href: "https://www.instagram.com/yadav_sarkar1519?igsh=Z3hsMzY1NnFkaHhq" },
+        { icon: Linkedin, href: "https://www.linkedin.com/in/satender-yadav-a39b622a0/" },
 
     ];
 
@@ -41,6 +46,7 @@ const Footer = () => {
                                 <a
                                     key={index}
                                     href={social.href}
+                                    target="blank"
                                     className="h-10 w-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
                                 >
                                     <social.icon className="h-5 w-5" />
