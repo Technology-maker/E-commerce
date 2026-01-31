@@ -11,13 +11,30 @@ const userSupportMail = async (name, email, subject, number, message) => {
             throw new Error("Resend API key not configured in environment variables");
         }
 
-        console.log("✅ Resend API key found. Sending email...");
+        console.log("✅ Resend API key found. Preparing email payload...");
 
         const resend = new Resend(process.env.RESEND_API_KEY);
 
+        // Determine sender and recipient
+        const configuredFrom = process.env.MAIL_USER;
+        const supportTo = process.env.SUPPORT_TO || process.env.MAIL_USER || "delivered@resend.dev";
+
+        // If sender is a common free email (gmail/yahoo/etc.), Resend requires a verified domain.
+        // Fallback to onboarding@resend.dev to avoid 403 errors. Users should verify their domain
+        // in Resend for production sending from their own domain.
+        let fromEmail = configuredFrom || "onboarding@resend.dev";
+        if (configuredFrom) {
+            const domain = configuredFrom.split("@")[1] || "";
+            const freeDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
+            if (freeDomains.includes(domain.toLowerCase())) {
+                console.warn(`Unverified free email domain used as MAIL_USER (${configuredFrom}); using onboarding@resend.dev as sender.`);
+                fromEmail = "onboarding@resend.dev";
+            }
+        }
+
         const result = await resend.emails.send({
-            from: process.env.MAIL_USER || "onboarding@resend.dev",
-            to: process.env.MAIL_USER || "delivered@resend.dev",
+            from: fromEmail,
+            to: supportTo,
             replyTo: email,
             subject: `[SUPPORT] ${subject}`,
             html: `
