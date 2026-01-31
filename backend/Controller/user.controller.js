@@ -597,15 +597,40 @@ export const userSupport = async (req, res) => {
     try {
         const { name, email, subject, number, message } = req.body;
 
+        // Validation
         if (!name || !email || !subject || !message) {
             return res.status(400).json({
                 success: false,
-                message: "All fields are required!"
+                message: "Name, email, subject, and message are required!"
             });
         }
 
-        const mailres = await userSupportMail(name, email, subject, number, message);
-        console.log(mailres);
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid email format!"
+            });
+        }
+
+        // Validate phone number if provided
+        if (number && !/^[\d\s\-\+()]+$/.test(number)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid phone number format!"
+            });
+        }
+
+        // Validate string lengths
+        if (name.length > 100 || subject.length > 200 || message.length > 5000) {
+            return res.status(400).json({
+                success: false,
+                message: "Input fields exceed maximum length!"
+            });
+        }
+
+        const mailResult = await userSupportMail(name, email, subject, number, message);
 
         return res.status(200).json({
             success: true,
@@ -616,7 +641,7 @@ export const userSupport = async (req, res) => {
         console.error("Support error:", error);
         return res.status(500).json({
             success: false,
-            message: error.message || "Failed to send message",
+            message: "Failed to send message. Please try again later."
         });
     }
 };
