@@ -14,17 +14,15 @@ export const sendOTPMail = async (otp, email) => {
 
         const resend = new Resend(process.env.RESEND_API_KEY);
 
-        // Determine sender. If MAIL_USER is a common free domain, fallback to onboarding@resend.dev
+        // Use configured MAIL_USER as sender when available (you verified satenderyadav.xyz).
+        // If you still want to force the Resend onboarding sender, set FORCE_ONBOARDING_SEND=true.
         const configuredFrom = process.env.MAIL_USER;
         let fromEmail = configuredFrom || "onboarding@resend.dev";
-        if (configuredFrom) {
-            const domain = configuredFrom.split("@")[1] || "";
-            const freeDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com"];
-            if (freeDomains.includes(domain.toLowerCase())) {
-                console.warn(`Unverified free email domain used as MAIL_USER (${configuredFrom}); using onboarding@resend.dev as sender.`);
-                fromEmail = "onboarding@resend.dev";
-            }
+        if (configuredFrom && process.env.FORCE_ONBOARDING_SEND === "true") {
+            console.warn("FORCE_ONBOARDING_SEND is true — using onboarding@resend.dev as sender instead of MAIL_USER.");
+            fromEmail = "onboarding@resend.dev";
         }
+        console.log(`Using sender: ${fromEmail}`);
 
         const result = await resend.emails.send({
             from: fromEmail,
