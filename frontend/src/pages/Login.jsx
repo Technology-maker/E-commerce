@@ -63,6 +63,9 @@ const Login = () => {
             }
         } catch (error) {
             console.log(error);
+            if(error.response?.data?.message == "Verify your account before login !"){
+                navigate("/reverify")
+            }
             toast.error(error.response?.data?.message || "Something went wrong")
         }
         finally {
