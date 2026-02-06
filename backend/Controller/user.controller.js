@@ -226,7 +226,7 @@ export const Login = async (req, res) => {
         if (!existingUser.isVerified) {
             return res.status(403).json({
                 success: false,
-                message: "Verify your account before login !"
+                message: "Verify your Email before login !"
             });
         }
 
