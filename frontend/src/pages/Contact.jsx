@@ -14,15 +14,15 @@ const Contact = () => {
             name: form.current.name.value,
             email: form.current.email.value,
             subject: form.current.subject.value,
-            number: form.current.number.value,
+            phoneno: form.current.phoneno.value,
             message: form.current.message.value,
         };
 
         try {
-            const API = import.meta.env.VITE_API_BASE_URL;
+            
 
             const res = await axios.post(
-                `${API}/user/support`,
+                `https://e-commerce-contact-backend.vercel.app`,
                 formData,
                 {
                     headers: {
@@ -105,7 +105,7 @@ const Contact = () => {
                             <form ref={form} onSubmit={sendEmail} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <Input label="Your Name" name="name" placeholder="John Doe" />
-                                    <Input label="Phone Number" name="number" type="number" placeholder="+91 9999999999" />
+                                    <Input label="Phone phoneno" name="phoneno" type="phoneno" placeholder="9876543210" />
                                 </div>
 
                                 <Input label="Email Address" name="email" type="email" placeholder="john@example.com" />
