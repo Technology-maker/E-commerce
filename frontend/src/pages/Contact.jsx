@@ -22,7 +22,7 @@ const Contact = () => {
             
 
             const res = await axios.post(
-                `https://e-commerce-contact-backend.vercel.app/api`,
+                `https://e-commerce-contact-backend.vercel.app/api/support`,
                 formData,
                 {
                     headers: {
