@@ -39,7 +39,7 @@ const Contact = () => {
             }
         } catch (error) {
             console.error(error);
-            toast.error("Server error. Please try again.");
+            toast.error(error.response?.data?.errors);
         } finally {
             setLoading(false);
         }
