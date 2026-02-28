@@ -63,7 +63,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
 
                 {/* Logo */}
-                <h1 className="font-bold text-2xl text-pink-600">E-commerce</h1>
+                <h1 className="font-bold text-2xl text-pink-600">ShopSphere</h1>
 
                 {/* Desktop Nav */}
                 <nav className="hidden sm:flex items-center gap-6 text-lg font-semibold">

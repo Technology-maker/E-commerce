@@ -17,8 +17,8 @@ const Footer = () => {
         ],
         company: [
             { name: "Contact Us", href: "/contact" },
-            { name: "Careers", href: "#" },
-            { name: "Sustainability", href: "#" },
+            { name: "Login 👤", href: "/login" },
+            { name: "Signup 🎉", href: "/signup" },
             { name: "Press", href: "#" },
         ],
     };
@@ -36,7 +36,7 @@ const Footer = () => {
                     {/* Brand */}
                     <div className="lg:col-span-2">
                         <Link to="/" className="font-heading text-3xl font-semibold tracking-tight">
-                            E-commerce
+                            ShopSphere
                         </Link>
                         <p className="mt-4 text-primary-foreground/70 max-w-sm leading-relaxed">
                             Discover curated collections of premium fashion, designed for those who appreciate timeless elegance and modern sophistication.
