@@ -10,7 +10,7 @@ router.post("/register", Register);
 router.post("/verify", Verify);
 router.post("/reverify", reVerify);
 router.post("/login", Login);
-router.post("/logout", isAuthenticated, Logout);
+router.post("/logout", Logout);
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp/:email", verifyOTP);
 router.post("/change-password/:email", changePassword);

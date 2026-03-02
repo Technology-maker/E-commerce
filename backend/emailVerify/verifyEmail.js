@@ -31,7 +31,7 @@ export const verifyEmail = async (token, email) => {
       font-size:24px;
       font-weight:600;
     ">
-      Welcome to E-commerce 👋
+      Welcome to ShopSphere 👋
     </h2>
 
     <p style="
